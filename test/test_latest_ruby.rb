@@ -10,11 +10,11 @@ require './lib/latest_ruby'
 require 'versionomy'
 
 describe 'Latest::Ruby#filename' do
-  subject { Latest.ruby.filename }
+  subject { Latest.ruby26.filename }
 
   it 'Before 2.6.0 release' do
     VCR.use_cassette '/2.6_only_preview_and_rc' do
-      expect(subject).must_equal('ruby-2.6.0-rc2.tar.gz')
+      expect(subject).must_equal('ruby-2.6.0.pre.rc2.tar.gz')
     end
   end
 
@@ -31,7 +31,7 @@ describe 'Latest::RubyVersion#to_s' do # rubocop:disable Metrics/BlockLength
     subject { Latest::RubyVersion.new(ver) }
 
     it 'is incorrect when using Gem.' do
-      expect(subject.to_s).must_equal(ver)
+      expect(subject.to_s).wont_equal(ver)
     end
 
     it 'is correct when using Versionomy.' do
@@ -45,7 +45,7 @@ describe 'Latest::RubyVersion#to_s' do # rubocop:disable Metrics/BlockLength
     subject { Latest::RubyVersion.new(ver) }
 
     it 'is incorrect when using Gem.' do
-      expect(subject.to_s).must_equal(ver)
+      expect(subject.to_s).wont_equal(ver)
     end
 
     it 'is correct when using Versionomy.' do
@@ -58,7 +58,7 @@ describe 'Latest::RubyVersion#to_s' do # rubocop:disable Metrics/BlockLength
     let(:ver) { '2.6.0' }
     subject { Latest::RubyVersion.new(ver) }
 
-    it 'is incorrect when using Gem.' do
+    it 'is correct when using Gem.' do
       expect(subject.to_s).must_equal(ver)
     end
 
